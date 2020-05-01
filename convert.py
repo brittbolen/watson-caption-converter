@@ -118,8 +118,11 @@ for x in json_data["results"]:
                             custom_tran = ""
                             tran_start = 0
                             tran_end = 0
-                sub_id += 1
-                tran_list.append([sub_id,custom_tran,tran_start,tran_end])
+                # make sure the custom_tran is not empty, which could happen in a long_tran case where
+                # we reach the max_chars on the last word of the transcript
+                if tran_start != 0 :
+                    sub_id += 1
+                    tran_list.append([sub_id,custom_tran,tran_start,tran_end])
             except:
                 print 'ERROR: Cannot find timestamps in JSON. Please ensure word timestamps are enabled in Watson.'
                 quit()
